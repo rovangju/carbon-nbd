@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "424bf0f9784b9b9a33fc26bc9d7563b3",
+    "hash": "a94463b1698e910055b39fd4adf1ce44",
     "packages": [
         {
             "name": "nesbot/carbon",

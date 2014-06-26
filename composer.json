@@ -15,5 +15,11 @@
 
     "require-dev": {
         "phpunit/phpunit": "~3.4"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "CarbonExt\\NBD\\": "src/"
+        }
     }
 }
