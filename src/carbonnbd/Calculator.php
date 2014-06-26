@@ -1,5 +1,7 @@
 <?php
 
+namespace carbonnbd;
+
 use Carbon\Carbon;
 
 class Calculator {
