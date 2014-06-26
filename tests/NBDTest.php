@@ -3,42 +3,42 @@
 use Carbon\Carbon;
 
 class NBDTest extends TestBase {
-	
+
 	public function testEmptyNBDCall() {
 		$nbd = $this->fresh;
-		
+
 		$response = $nbd->nbd();
-		
+
 		$this->assertInstanceOf(
 			'Carbon\Carbon',
 			$response
 		);
 	}
-	
+
 	public function testReferenceAvoidance() {
-		
+
 		$nbd = $this->fresh;
-		
+
 		$dt = new Carbon('2014-01-04');
 		$dtClone = clone $dt;
 
 		$nbd->nbd($dt);
-		
+
 		/* Ensure original haven't been overwritten */
 		$this->assertSame(
 			(string)$dt,
 			(string)$dtClone->addDay()
 		);
 	}
-	
+
 	public function testSimpleExclusion() {
-		
+
 		$nbd = $this->fresh;
 
 		$nbd->addExclusion(new Carbon('2014-01-05')); /* Sun */
 
 		$dt = new Carbon('2014-01-04'); /* Sat */
-		
+
 		$nbdResponse = $nbd->nbd($dt);
 
 
@@ -50,20 +50,20 @@ class NBDTest extends TestBase {
 			$nbdResponse->format('Y-m-d')
 		);
 	}
-	
+
 	public function testDeadline() {
-		
+
 		$nbd = $this->fresh;
-		
-		$deadline = new Carbon('2014-01-01 13:00:00'); 
-		
+
+		$deadline = new Carbon('2014-01-01 13:00:00');
+
 		$nbd->setDeadline($deadline);
-		
+
 		$beforeDeadline = new Carbon('2014-01-01 12:59:59');
 		$expected = new Carbon('2014-01-01');
-		
+
 		$response = $nbd->nbd($beforeDeadline);
-		
+
 		$this->assertEquals(
 			$expected->format('Y-m-d'),
 			$response->format('Y-m-d')
@@ -72,9 +72,9 @@ class NBDTest extends TestBase {
 
 		$afterDeadline = new Carbon('2014-01-01 13:00:01');
 		$expected = new Carbon('2014-01-02');
-		
+
 		$response = $nbd->nbd($afterDeadline);
-		
+
 		$this->assertEquals(
 			$expected->format('Y-m-d'),
 			$response->format('Y-m-d')
