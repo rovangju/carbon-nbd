@@ -1,4 +1,9 @@
 <?php
+/**
+ * Carbon Extension: Next Business Day (NBD)
+ * @license GPLv2
+ * @author Justin Rovang <generate@itnobody.com>
+ */
 
 use Carbon\Carbon;
 

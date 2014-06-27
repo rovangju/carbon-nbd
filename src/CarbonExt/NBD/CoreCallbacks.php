@@ -1,17 +1,17 @@
 <?php
-
+/**
+ * Carbon Extension: Next Business Day (NBD)
+ * @license GPLv2
+ * @author Justin Rovang <generate@itnobody.com>
+ */
 
 namespace CarbonExt\NBD;
-
 
 use Carbon\Carbon;
 
 /**
- * Class CoreCallbacks
- * @package CarbonExt\NBD
- * 
- * 
- * 
+ * A small library of pre-packaged callbacks for convenience.
+ * Each method returns a callable method for use as a callback.
  */
 abstract class CoreCallbacks {
 

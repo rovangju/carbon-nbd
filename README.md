@@ -1,6 +1,6 @@
 # Carbon Extension: Next Business Day (NBD)
 
-*develop*: [![Build Status](https://travis-ci.org/rovangju/carbon-nbd.svg?branch=develop)](https://travis-ci.org/rovangju/carbon-nbd)
+[![Build Status](https://travis-ci.org/rovangju/carbon-nbd.svg?branch=master)](https://travis-ci.org/rovangju/carbon-nbd)
 
 -------
 

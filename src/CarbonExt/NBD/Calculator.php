@@ -1,16 +1,23 @@
 <?php
+/**
+ * Carbon Extension: Next Business Day (NBD)
+ * @license GPLv2
+ * @author Justin Rovang <generate@itnobody.com>
+ */
 
 namespace CarbonExt\NBD;
 
 use Carbon\Carbon;
 
 /**
- * Class Calculator
- * @package CarbonExt\NBD
+ * An extension that utilizes the Carbon DateTime object to determine the "next business day" for a given input.
  */
 class Calculator {
-	
-	static $N_MAX_ITER = 365; /* Limit how many days to keep 'bumping' the next business day candidate up to */
+
+	/**
+	 * @var int Limit how many days to keep 'bumping' the next business day candidate up to.
+	 */
+	static $N_MAX_ITER = 365;
 
 	protected $exclusions = array();
 	protected $callbacks = array();
@@ -31,7 +38,7 @@ class Calculator {
 	}
 
 	/**
-	 * Add a callaback to evaluate as an exclusion element
+	 * Add a callback to evaluate as an exclusion element
 	 * 
 	 * @param $callable
 	 * @throws \InvalidArgumentException
@@ -46,7 +53,7 @@ class Calculator {
 	}
 
 	/**
-	 * Get callbacks regsitered
+	 * Get callbacks registered
 	 * 
 	 * @return array
 	 */
