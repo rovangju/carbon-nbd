@@ -8,6 +8,12 @@
             "email": "generate@itnobody.com"
         }
     ],
+    "keywords": [
+        "business-day",
+        "next-business-day",
+        "carbon",
+        "DateTime"
+    ],
     "require": {
         "nesbot/carbon": "~1.0",
         "php": ">=5.3.0"
