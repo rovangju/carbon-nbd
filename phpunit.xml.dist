@@ -6,7 +6,10 @@
 		convertWarningsToExceptions="true"
 		stopOnFailure="false"
 		syntaxCheck="true"
+		strict="true"
 		>
+	
+	<!-- DO NOT DISABLE 'strict' mode - it's needed in case of infinite loop in tests -->
 
 	<filter>
 		<whitelist>

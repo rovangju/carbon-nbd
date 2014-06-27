@@ -70,4 +70,18 @@ class CalculatorTest extends TestBase {
 		);
 
 	}
+	
+	public function testCallbacks() {
+		
+		$fn = function() {
+			throw new \Exception('Test');
+		};
+		
+		$this->fresh->addCallback($fn);
+		
+		$this->assertEquals(
+			array($fn),
+			$this->fresh->callbacks()
+		);
+	}
 }
