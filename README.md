@@ -37,8 +37,9 @@ var_dump($nbd->nbd($dt)); /* Carbon obj: 2014-01-03 */
 
 /* Custom exclusion callbacks for layering in complexity */
 $nbd->addCallback(C::noWeekends());
-$nbd->addCallback(C::ignoreDaysOfWeek(array(4))); /* No Saturdays, uses Carbon's 0-based offsets */
+$nbd->addCallback(C::ignoreDaysOfWeek(array(4))); /* No Fridays, uses Carbon's 0-based offsets */
 
+/* All callback functions must accept a Carbon object and return a bool value */
 $cfn = function(Carbon $dt) {
 	return ($dt->day % 2 == 0);
 }
