@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+		bootstrap="tests/TestBase.php"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		stopOnFailure="false"
+		syntaxCheck="true"
+		strict="true"
+		>
+	
+	<!-- DO NOT DISABLE 'strict' mode - it's needed in case of infinite loop in tests -->
+
+	<filter>
+		<whitelist>
+			<directory>src/CarbonExt/NBD</directory>
+		</whitelist>
+	</filter>
+
+	<testsuites>
+		<testsuite name="Carbon Next Business Day (BBD) Test Suite">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
