@@ -83,9 +83,14 @@ class BusinessDayCalc extends Calculator {
 
 		$this->addCallback(C::noWeekends());
 
+        $observed = array();
+        
+        /* Use ignoreRecurring strategy to ignore recurring month-day combos */
 		foreach ($this->observedHolidays as $dt) {
-			$this->addException(new Carbon($dt));
+			$observed[] = new Carbon($dt);
 		}		
+		
+		$this->addCallback(C::ignoreRecurring($observed);
 	}
 }
 
