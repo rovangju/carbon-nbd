@@ -75,17 +75,27 @@ class BusinessDayCalc extends Calculator {
 		'July 4th', /* Independence Day */
 		'November 28th', /* Thanksgiving */
 		'December 25th', /* Christmas */
-		'Last Monday of May', /* Memorial Day */
-		'First Monday of September' /* Labor Day */
 	);
 
 	public function __construct() {
 
 		$this->addCallback(C::noWeekends());
 
+        $observed = array();
+        
+        /* Use ignoreRecurring strategy to ignore recurring month-day combos */
 		foreach ($this->observedHolidays as $dt) {
-			$this->addException(new Carbon($dt));
-		}		
+			$observed[] = new Carbon($dt);
+		}
+		
+		$this->addCallback(C::ignoreRecurring($observed);
+		
+		/* Use ignoreNDOW strategy to ignore complex, verbal-oriented exceptions */
+		/* Ignore Memorial Day: Last Monday of May /*
+		$this->addCallback(C::ignoreNDOW(5, -1, 1));
+		
+		/* Ignore Labor Day: First Monday of September */
+		$this->addCallback(C::ignoreNDOW(9, 1, 1));
 	}
 }
 
