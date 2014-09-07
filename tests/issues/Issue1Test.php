@@ -35,14 +35,23 @@ class Issue1Test extends TestBase {
         );
     }
     
-    public function testComplexRecurring() {
+    public function testNDOW() {
 
-        $dt1 = new Carbon('2016-06-30');
-        $dt2 = new Carbon('2015-06-25');
+        /* ignoreNDOW */
         
-        error_log($dt1->diffInDays($dt2));
+        $in = new Carbon('2015-05-24'); /* Day before - NBD should skip 25th */
         
-        $this->markTestSkipped('TBD');
+        $c = new Calculator();
+        
+        $c->addCallback(
+            CB::ignoreNDOW(5, -1, 1)
+        );
+        
+        $this->assertEquals(
+            '2015-05-26',
+            $c->nbd($in)->format('Y-m-d')
+        );
+        
     }
 }
  

@@ -14,9 +14,6 @@ use Carbon\Carbon;
  * Each method returns a callable method for use as a callback.
  */
 abstract class CoreCallbacks {
-    
-    const N_FIRST = -1;
-    const N_LAST = -2;
 
 	/**
 	 * Exclude weekends from NBD calculation
@@ -59,42 +56,65 @@ abstract class CoreCallbacks {
 
     /**
      * Exclude a more complicated method for something like a holiday, e.g.: Memorial Day - "Last Monday in May"
-     * this could be solved using CoreCallbacks::ignoreNDOW(5, N_LAST, 1) 
+     * this could be solved using CoreCallbacks::ignoreNDOW(5, -1, 1) 
      * 
      * @param integer $month 1 based index of month, 1 = Jan, 12 = dec
-     * @param integer $nth Ignore the "nth" $dayOfWeek of the given month (1-6, FIRST, LAST)
+     * @param integer $nth Ignore the "nth" $dayOfWeek of the given month (1-6, To get 'LAST' $dayOfWeek, use -1)
      * @param integer $dayOfWeek Zero based index day of the week - 0 = Sunday, 6 = Saturday
      *
      * @return callable
      */
     static public function ignoreNDOW($month, $nth, $dayOfWeek) {
         
-        $context = new Carbon();
-        
-        if ($context->month !== $month) {
-            return FALSE;
-        }
-        
-        $cmp = new Carbon($context->format('Y-m-').'01'); /* Set our walker up to the first of the context's month */
-        
-        $ticks = 0;
-        
-        for ($i = 0; $i < $context->daysInMonth; $i++) {
-            
-            if ($cmp->dayOfWeek == $dayOfWeek) {
-                
-                if ($nth == static::N_FIRST) {
-                    return TRUE;
+        return function(Carbon $context) use ($month, $nth, $dayOfWeek) {
+
+            if ($context->month !== $month) {
+                return FALSE;
+            }
+
+            $cmp = new Carbon($context->format('Y-m-').'01'); /* Set our walker up to the first of the context's month */
+
+            $ticks = 0;
+
+            /**
+             * @var $stack Carbon[]
+             */
+            $stack = []; /* Used to track 'nth' */
+
+            for ($i = 0; $i < $context->daysInMonth; $i++) {
+
+                if ($cmp->dayOfWeek == $dayOfWeek) {
+
+                    $stack[] = clone $cmp;
+
+                    $ticks++;
+
+                    if ($cmp->eq($context)) {
+
+                        /* "FIRST" or generic 'nth' */
+                        if ($nth == $ticks) {
+                            return TRUE;
+                        }
+                    }
                 }
-                
-                $ticks++;
+
+                $cmp->addDay();
             }
-            
-            if ($ticks == $nth) {
+
+            /* For brevity, checking for the -1 anyways */
+            if ($nth == -1) {
+
+                /**
+                 * @var $last Carbon
+                 */
+                $last = array_pop($stack);
+                return $last->eq($context);
             }
+
+            return FALSE;
             
-            $cmp->addDay();
-        }
+        };
+
     }
 
 	/**
