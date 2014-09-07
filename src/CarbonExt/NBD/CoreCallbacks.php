@@ -166,6 +166,4 @@ abstract class CoreCallbacks {
 			);
 		};
 	}
-	
 }
- 

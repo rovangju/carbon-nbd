@@ -34,24 +34,64 @@ class Issue1Test extends TestBase {
             $c->nbd($in)->format('Y-m-d')
         );
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadRecurringArray() {
+
+        $c = new Calculator();
+
+        $c->addCallback(
+            CB::ignoreRecurring(array('A string?')
+            )
+        );
+        
+    }
+
     
     public function testNDOW() {
+
+        $in = new Carbon('2014-09-01'); 
+
+        $c = new Calculator();
+
+        /* Throwing this in for code coverage */
+        $c->addCallback(
+            CB::ignoreNDOW(1, 1, 1)
+        );
+
+        /* Skip first tuesday */
+        $c->addCallback(
+            CB::ignoreNDOW(9, 1, 2)
+        );
+
+        $c->addCallback(
+            CB::ignoreNDOW(9, 1, 3)
+        );
+
+        $this->assertEquals(
+            '2014-09-04',
+            $c->nbd($in)->format('Y-m-d')
+        );
+    }
+    
+    public function testNDOWLast() {
 
         /* ignoreNDOW */
         
         $in = new Carbon('2015-05-24'); /* Day before - NBD should skip 25th */
         
         $c = new Calculator();
-        
+
         $c->addCallback(
             CB::ignoreNDOW(5, -1, 1)
         );
-        
+
         $this->assertEquals(
             '2015-05-26',
             $c->nbd($in)->format('Y-m-d')
         );
-        
     }
 }
  
