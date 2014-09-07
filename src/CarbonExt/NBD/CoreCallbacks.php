@@ -79,7 +79,7 @@ abstract class CoreCallbacks {
             /**
              * @var $stack Carbon[]
              */
-            $stack = []; /* Used to track 'nth' */
+            $stack = array(); /* Used to track 'nth' */
 
             for ($i = 0; $i < $context->daysInMonth; $i++) {
 
