@@ -44,6 +44,8 @@ class NASDAQBusinessDayCalc extends Calculator {
         'Memorial Day' => [5,-1,1], // Last Mon of May
         'Independence Day' => 'July 4th',
         'Labor Day' => [9,1,1], // 1st Mon of Sep
+        'Thanksgiving Day' => [11, 4, 4], // 4th Thu of Nov
+        'Day After Thanksgiving' => [11, 4, 5], // 4th Fri of Nov
         'Christmas' => 'December 25th',
     );
 

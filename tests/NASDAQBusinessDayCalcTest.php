@@ -54,6 +54,19 @@ class NASDAQBusinessDayCalcTest extends TestBase {
 		);
 	}
 
+	public function testSkipsThanskgivingAndDayAfter()
+	{
+		$nbd = $this->fresh;
+		$dt = new Carbon('2016-11-23'); // Wed before Thanksigiving Day, 2016-11-23
+		$nbdResponse = $nbd->addBusinessDays($dt, 3);
+		$nbdExpected = new Carbon('2016-11-30');
+
+		$this->assertEquals(
+			$nbdExpected->format('Y-m-d'),
+			$nbdResponse->format('Y-m-d')
+		);
+	}
+
 	public function testAddThirtyBusinessDays()
 	{
 		$nbd = $this->fresh;
@@ -71,11 +84,11 @@ class NASDAQBusinessDayCalcTest extends TestBase {
 	public function testDeadline() {
 		$nbd = $this->fresh;
 
-		$deadline = new Carbon('4:30pm');
+		$deadline = new Carbon('2016-08-30 16:30:00'); // 4:30pm
 
 		$nbd->setDeadline($deadline);
 
-		$beforeDeadline = new Carbon('4:29pm');
+		$beforeDeadline = new Carbon('2016-08-30 16:29:00');
 		$expected = new Carbon('2016-08-30');
 		$response = $nbd->nbd($beforeDeadline);
 
@@ -85,7 +98,7 @@ class NASDAQBusinessDayCalcTest extends TestBase {
 		);
 
 
-		$afterDeadline = new Carbon('4:31pm');
+		$afterDeadline = new Carbon('2016-08-30 16:31:00');
 		$expected = new Carbon('2016-08-31');
 		$response = $nbd->nbd($afterDeadline);
 
