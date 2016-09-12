@@ -57,9 +57,37 @@ class NASDAQBusinessDayCalcTest extends TestBase {
 	public function testSkipsThanskgivingAndDayAfter()
 	{
 		$nbd = $this->fresh;
-		$dt = new Carbon('2016-11-23'); // Wed before Thanksigiving Day, 2016-11-23
+		$dt = new Carbon('2016-11-23'); // Wed before Thanksigiving in 2016
 		$nbdResponse = $nbd->addBusinessDays($dt, 3);
 		$nbdExpected = new Carbon('2016-11-30');
+
+		$this->assertEquals(
+			$nbdExpected->format('Y-m-d'),
+			$nbdResponse->format('Y-m-d')
+		);
+	}
+
+	public function testSkipsDayAfterThanksgiving2024()
+	{
+		$nbd = $this->fresh;
+		// This year is important because Nov 1 is a Friday, so you cannot use
+		// the "4th Friday of Nov" method to determine the day after Thanksgiving
+		$dt = new Carbon('2024-11-27'); // Wed before Thanksgiving in 2024
+		$nbdResponse = $nbd->addBusinessDays($dt, 3);
+		$nbdExpected = new Carbon('2024-12-04');
+
+		$this->assertEquals(
+			$nbdExpected->format('Y-m-d'),
+			$nbdResponse->format('Y-m-d')
+		);
+	}
+
+	public function testSkipsGoodFriday2017()
+	{
+		$nbd = $this->fresh;
+		$dt = new Carbon('2017-04-13'); // Day before Good Friday 2017 (Thu)
+		$nbdResponse = $nbd->addBusinessDays($dt, 1);
+		$nbdExpected = new Carbon('2017-04-17');
 
 		$this->assertEquals(
 			$nbdExpected->format('Y-m-d'),
