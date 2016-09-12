@@ -10,13 +10,12 @@ use Carbon\Carbon;
  * by the author in README.md.
  *
  * This class is a specific implementation designed to automatically account
- * for holidays as observed by the NASDAQ. It is not 100% perfect!
- * (does not skip Good Friday, which is difficult to determine, nor Dec 26th
- * which is often taken off in honor of Christmas the day before) so use at
- * your own discretion.
+ * for holidays as observed by the NASDAQ. The only holiday it does not
+ * automatically calculate is the day taken off for Christmas if Christmas day
+ * falls on a weekend.
  *
  * I also added a new method, addBusinessDays(), so you can easily add more
- * than one business day (n business days) at a time to any given Carbon date.
+ * than one business day at a time to any given Carbon date.
  *
  * https://github.com/shorlbeck/nbd-calc  << My fork
  *
