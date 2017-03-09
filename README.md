@@ -1,11 +1,10 @@
-# Carbon Extension: Next Business Day (NBD)
+# Carbon Wrapper: Next Business Day (NBD)
 
 [![Build Status](https://travis-ci.org/rovangju/carbon-nbd.svg?branch=master)](https://travis-ci.org/rovangju/carbon-nbd)
 
 -------
 
-Have some business logic that requires a somewhat complicated calculation for deadlines or effective dates that need to be modified based on holidays, weekends or special dates? This extension for the PHP [Carbon project](https://github.com/briannesbitt/Carbon/) (a DateTime extension itself) is for you!
-
+Have some business logic that requires a somewhat complicated calculation for deadlines or effective dates that need to be modified based on holidays, weekends or special dates? This wrapper for the PHP [Carbon project](https://github.com/briannesbitt/Carbon/) (a DateTime extension itself) is for you!
 
 
 ## Overview
@@ -65,7 +64,7 @@ $nbd->nbd(new Carbon('2014-01-01 3:00:01pm')); /* Carbon obj: 2014-01-02 00:00:0
 
 ```php
 use CarbonExt\NBD\Calculator;
-use CarbonExt\NBD\CoreCallbacks C;
+use CarbonExt\NBD\CoreCallbacks as C;
 use Carbon\Carbon;
 
 class BusinessDayCalc extends Calculator {
@@ -88,10 +87,10 @@ class BusinessDayCalc extends Calculator {
 			$observed[] = new Carbon($dt);
 		}
 		
-		$this->addCallback(C::ignoreRecurring($observed);
+		$this->addCallback(C::ignoreRecurring($observed));
 		
 		/* Use ignoreNDOW strategy to ignore complex, verbal-oriented exceptions */
-		/* Ignore Memorial Day: Last Monday of May /*
+		/* Ignore Memorial Day: Last Monday of May */
 		$this->addCallback(C::ignoreNDOW(5, -1, 1));
 		
 		/* Ignore Labor Day: First Monday of September */
