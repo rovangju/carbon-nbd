@@ -64,7 +64,7 @@ $nbd->nbd(new Carbon('2014-01-01 3:00:01pm')); /* Carbon obj: 2014-01-02 00:00:0
 
 ```php
 use CarbonExt\NBD\Calculator;
-use CarbonExt\NBD\CoreCallbacks C;
+use CarbonExt\NBD\CoreCallbacks as C;
 use Carbon\Carbon;
 
 class BusinessDayCalc extends Calculator {
@@ -87,7 +87,7 @@ class BusinessDayCalc extends Calculator {
 			$observed[] = new Carbon($dt);
 		}
 		
-		$this->addCallback(C::ignoreRecurring($observed);
+		$this->addCallback(C::ignoreRecurring($observed));
 		
 		/* Use ignoreNDOW strategy to ignore complex, verbal-oriented exceptions */
 		/* Ignore Memorial Day: Last Monday of May */
