@@ -102,3 +102,11 @@ $nbd = new BusinessDayCalc();
 /* Now all your business use-case rules are automatically built in */
 
 ```
+
+-------
+
+## Contributing
+Please follow the [Git Flow](https://github.com/nvie/gitflow) conventions. Proposals should be performed against develop or a feature/bugfix/support branch to be merged in by the maintainer. 
+
+Releases/versioning semantics follow the [Semantic Versioning](http://semver.org) 2.0.x guidelines. Minute adjustments (e.g.: changes to this README.md) may or may not result in a new version tag, depending on the nature of the change.
+
