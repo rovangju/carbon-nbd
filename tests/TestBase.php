@@ -9,7 +9,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 use CarbonExt\NBD\Calculator;
 
-class TestBase extends PHPUnit_Framework_TestCase {
+class TestBase extends PHPUnit\Framework\TestCase {
 
 	/**
 	 * @var Calculator

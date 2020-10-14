@@ -53,7 +53,7 @@ class CoreCallbacksTest extends TestBase {
 
 	public function testIgnoreDaysOfYear() {
 
-		$cb = C::ignoreDaysOfYear(array(0, 364));
+		$cb = C::ignoreDaysOfYear(array(1, 365));
 
 		$dt = new Carbon('2014-01-02');
 		$this->assertFalse($cb($dt));
