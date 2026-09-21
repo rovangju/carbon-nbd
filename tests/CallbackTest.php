@@ -29,11 +29,6 @@ class CallbackTest extends TestBase {
 		);
 	}
 
-	/**
-	 * @medium
-	 * 
-	 * @expectedException \RuntimeException
-	 */
 	public function testMaxIters() {
 		
 		$cb = function() {
@@ -42,17 +37,16 @@ class CallbackTest extends TestBase {
 			
 		$this->fresh->addCallback($cb);
 		
+		$this->expectException(\RuntimeException::class);
 		$this->fresh->nbd();
 		
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 */
 	public function testNonFunction() {
 		
 		$cb = 'banana';
 		
+		$this->expectException(\InvalidArgumentException::class);
 		$this->fresh->addCallback($cb);		
 	}
 	

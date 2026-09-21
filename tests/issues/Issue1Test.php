@@ -35,12 +35,11 @@ class Issue1Test extends TestBase {
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testBadRecurringArray() {
 
         $c = new Calculator();
+
+        $this->expectException(\InvalidArgumentException::class);
 
         $c->addCallback(
             CB::ignoreRecurring(array('A string?')

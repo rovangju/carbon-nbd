@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-		bootstrap="tests/TestBase.php"
-		convertErrorsToExceptions="true"
-		convertNoticesToExceptions="true"
-		convertWarningsToExceptions="true"
-		stopOnFailure="false"
-		syntaxCheck="true"
-		strict="true"
-		>
-	
-	<!-- DO NOT DISABLE 'strict' mode - it's needed in case of infinite loop in tests -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="tests/TestBase.php"
+         cacheDirectory=".phpunit.cache"
+         colors="true">
+    <testsuites>
+        <testsuite name="Carbon Next Business Day Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
 
-	<filter>
-		<whitelist>
-			<directory>src/CarbonExt/NBD</directory>
-		</whitelist>
-	</filter>
-
-	<testsuites>
-		<testsuite name="Carbon Next Business Day (BBD) Test Suite">
-			<directory>tests</directory>
-		</testsuite>
-	</testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
 </phpunit>
