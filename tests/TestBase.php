@@ -16,7 +16,7 @@ class TestBase extends PHPUnit\Framework\TestCase {
 	 */
 	protected $fresh;
 
-	protected function setUp() {
+	protected function setUp(): void {
 
 		date_default_timezone_set('America/Chicago');
 

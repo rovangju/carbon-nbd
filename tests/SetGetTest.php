@@ -7,7 +7,7 @@
 
 use Carbon\Carbon;
 
-class CalculatorTest extends TestBase {
+class SetGetTest extends TestBase {
 
 	public function testAddExclusion() {
 

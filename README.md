@@ -1,10 +1,15 @@
 # Carbon Wrapper: Next Business Day (NBD)
 
-[![Build Status](https://travis-ci.org/rovangju/carbon-nbd.svg?branch=master)](https://travis-ci.org/rovangju/carbon-nbd)
+[![Tests](https://github.com/rovangju/carbon-nbd/actions/workflows/tests.yml/badge.svg)](https://github.com/rovangju/carbon-nbd/actions/workflows/tests.yml)
 
 -------
 
 Have some business logic that requires a somewhat complicated calculation for deadlines or effective dates that need to be modified based on holidays, weekends or special dates? This wrapper for the PHP [Carbon project](https://github.com/briannesbitt/Carbon/) (a DateTime extension itself) is for you!
+
+## Requirements
+
+- PHP 8.1 or later
+- Carbon 3
 
 
 ## Overview
@@ -17,7 +22,7 @@ The meat and potatoes functionality is provided by the `nbd(Carbon $c)` method. 
 ### Basic usage ###
 ```php
 use CarbonExt\NBD\Calculator;
-use CarbonExt\NBD\CoreCallbacks C;
+use CarbonExt\NBD\CoreCallbacks as C;
 use Carbon\Carbon;
 
 $nbd = new Calculator();
@@ -109,4 +114,3 @@ $nbd = new BusinessDayCalc();
 Please follow the [Git Flow](https://github.com/nvie/gitflow) conventions. Proposals should be performed against develop or a feature/bugfix/support branch to be merged in by the maintainer. 
 
 Releases/versioning semantics follow the [Semantic Versioning](http://semver.org) 2.0.x guidelines. Minute adjustments (e.g.: changes to this README.md) may or may not result in a new version tag, depending on the nature of the change.
-

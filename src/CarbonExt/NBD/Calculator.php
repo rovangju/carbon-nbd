@@ -17,22 +17,22 @@ class Calculator {
 	/**
 	 * @var int Limit how many days to keep 'bumping' the next business day candidate up to.
 	 */
-	static $N_MAX_ITER = 365;
+	public static int $N_MAX_ITER = 365;
 
-	protected $exclusions = array();
-	protected $callbacks = array();
+	protected array $exclusions = array();
+	protected array $callbacks = array();
 
 	/**
 	 * @var Carbon
 	 */
-	protected $deadline;
+	protected ?Carbon $deadline = null;
 
 	/**
 	 * Add a date to exclude as a business day
 	 *
 	 * @param $exclusion string|Carbon
 	 */
-	public function addExclusion(Carbon $exclusion) {
+	public function addExclusion(Carbon $exclusion): void {
 		$exclusion->setTime(0,0,0);
 		$this->exclusions[] = $exclusion;
 	}
@@ -43,12 +43,11 @@ class Calculator {
 	 * @param $callable
 	 * @throws \InvalidArgumentException
 	 */
-	public function addCallback($callable) {
-		
+	public function addCallback($callable): void {
 		if (!is_callable($callable)) {
 			throw new \InvalidArgumentException('Argument must be callable');
 		}
-		
+
 		$this->callbacks[] = $callable;
 	}
 
@@ -57,7 +56,7 @@ class Calculator {
 	 * 
 	 * @return array
 	 */
-	public function callbacks() {
+	public function callbacks(): array {
 		return $this->callbacks;
 	}
 
@@ -66,7 +65,7 @@ class Calculator {
 	 *
 	 * @return array|Carbon[]
 	 */
-	public function exclusions() {
+	public function exclusions(): array {
 		return $this->exclusions;
 	}
 
@@ -76,22 +75,22 @@ class Calculator {
 	 * @param Carbon $dt
 	 * @return bool
 	 */
-	public function isExcluded(Carbon $dt) {
+	public function isExcluded(Carbon $dt): bool {
 
 		foreach ($this->exclusions() as $exc) {
 
 			if ($dt->eq($exc)) {
-				return TRUE;
+				return true;
 			}
 		}
 		
 		foreach ($this->callbacks() as $fn) {
-			if ($fn($dt) == TRUE) {
-				return TRUE;
+			if ($fn($dt) == true) {
+				return true;
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -100,7 +99,7 @@ class Calculator {
 	 *
 	 * @param Carbon $dt
 	 */
-	public function setDeadline(Carbon $dt) {
+	public function setDeadline(Carbon $dt): void {
 		$this->deadline = $dt;
 	}
 
@@ -109,7 +108,7 @@ class Calculator {
 	 *
 	 * @return Carbon
 	 */
-	public function deadline() {
+	public function deadline(): ?Carbon {
 		return $this->deadline;
 	}
 
@@ -121,9 +120,9 @@ class Calculator {
 	 * @throws \RuntimeException
 	 * @return Carbon Next business day (DATE ONLY, times will be zeroed out)
 	 */
-	public function nbd(Carbon $dt = NULL) {
+	public function nbd(?Carbon $dt = null): Carbon {
 
-		if (($dt instanceof Carbon) == FALSE) {
+		if ($dt === null) {
 			$dt = new Carbon();
 		}
 
@@ -142,7 +141,7 @@ class Calculator {
 		
 		while ($this->isExcluded($dt)) {
 			
-			if ($iters == static::$N_MAX_ITER) {
+			if ($iters >= static::$N_MAX_ITER) {
 				throw new \RuntimeException('Maximum iterations met for next business day calculation');
 			}
 			

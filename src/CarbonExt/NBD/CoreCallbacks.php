@@ -20,7 +20,7 @@ abstract class CoreCallbacks {
 	 * 
 	 * @return callable
 	 */
-	static public function noWeekends() {
+	public static function noWeekends(): callable {
 		return function(Carbon $dt) {
 			return $dt->isWeekend();
 		};
@@ -35,12 +35,12 @@ abstract class CoreCallbacks {
      * @throws \InvalidArgumentException
      * @return callable
      */
-    static public function ignoreRecurring(array $recurring) {
+    public static function ignoreRecurring(array $recurring): callable {
         
         $idx = array();
         
         foreach ($recurring as $r) {
-            if (($r instanceof Carbon) == FALSE) {
+            if (!$r instanceof Carbon) {
                 throw new \InvalidArgumentException('Array of Carbon object expected');
             }
             $idx[] = $r->month.$r->day;
@@ -64,12 +64,12 @@ abstract class CoreCallbacks {
      *
      * @return callable
      */
-    static public function ignoreNDOW($month, $nth, $dayOfWeek) {
+    public static function ignoreNDOW(int $month, int $nth, int $dayOfWeek): callable {
         
         return function(Carbon $context) use ($month, $nth, $dayOfWeek) {
 
             if ($context->month !== $month) {
-                return FALSE;
+                return false;
             }
 
             $cmp = new Carbon($context->format('Y-m-').'01'); /* Set our walker up to the first of the context's month */
@@ -93,7 +93,7 @@ abstract class CoreCallbacks {
 
                         /* "FIRST" or generic 'nth' */
                         if ($nth == $ticks) {
-                            return TRUE;
+                            return true;
                         }
                     }
                 }
@@ -102,7 +102,7 @@ abstract class CoreCallbacks {
             }
 
             /* For brevity, checking for the -1 anyways */
-            if ($nth == -1) {
+            if ($nth === -1) {
 
                 /**
                  * @var $last Carbon
@@ -111,7 +111,7 @@ abstract class CoreCallbacks {
                 return $last->eq($context);
             }
 
-            return FALSE;
+            return false;
             
         };
 
@@ -124,7 +124,7 @@ abstract class CoreCallbacks {
 	 * 
 	 * @return callable
 	 */
-	static public function ignoreDaysOfWeek(array $days) {
+	public static function ignoreDaysOfWeek(array $days): callable {
 		return function(Carbon $dt) use ($days) {
 			return in_array(
 				$dt->dayOfWeek,
@@ -140,7 +140,7 @@ abstract class CoreCallbacks {
 	 *
 	 * @return callable
 	 */
-	static public function ignoreDaysOfYear(array $days) {
+	public static function ignoreDaysOfYear(array $days): callable {
 
 		return function(Carbon $dt) use ($days) {
 			return in_array(
@@ -157,7 +157,7 @@ abstract class CoreCallbacks {
 	 *
 	 * @return callable
 	 */
-	static public function ignoreDaysOfMonth(array $days) {
+	public static function ignoreDaysOfMonth(array $days): callable {
 		
 		return function(Carbon $dt) use ($days) {
 			return in_array(
